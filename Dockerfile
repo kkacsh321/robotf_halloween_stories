@@ -19,4 +19,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 8505
 
 # Run streamlit when the container launches
-CMD ["streamlit", "run", "RoboTF_Halloween_Stories.py"]
+CMD ["streamlit", "run", "RoboTF_Halloween_Stories.py", "--server.port", "8505"]
