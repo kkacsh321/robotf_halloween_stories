@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  localai:
+    container_name: localai
+    platform: linux/arm64 ## Change to your platform
+    image: quay.io/go-skynet/local-ai:v2.21.1-aio-cpu
+    ports:
+      - 8080:8080
+    volumes:
+      - ./models:/models
+    environment:
+      - DEBUG=true
+      - LLAMACPP_PARALLEL=4
+      - PARALLEL_REQUESTS=true
+      - PYTHON_GRPC_MAX_WORKERS=4
+      - WATCHDOG_IDLE=true
+      - WATCHDOG_BUSY=true
+      - WATCHDOG_IDLE_TIMEOUT=10m
+      - WATCHDOG_BUSY_TIMEOUT=20m
+      - IMAGE_PATH=/models/images/
+      - UPLOAD_LIMIT=2000
+      - threads=4
+      - MODELS_PATH=/models
+  robotf-halloween-stories:
+    container_name: robotf-halloween-stories
+    platform: linux/arm64 ## Change to your platform
+    build: "."
+    command:
+      [
+        "streamlit",
+        "run",
+        "RoboTF_Halloween_Stories.py",
+        "--server.port",
+        "8505",
+      ]
+    ports:
+      - 8505:8505
+    depends_on:
+      - localai
