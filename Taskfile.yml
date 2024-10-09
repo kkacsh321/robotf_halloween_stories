@@ -1,7 +1,7 @@
 version: "3"
 
 vars:
-  IMAGE_VERSION: "v0.0.2"
+  IMAGE_VERSION: "v0.0.3"
   IMAGE_NAME: "robotf/robotf-halloween-stories"
 
 tasks:
@@ -60,11 +60,12 @@ tasks:
       - DOCKER_BUILDKIT=1 docker buildx build -f ./Dockerfile --load -t {{.IMAGE_NAME}}:{{.IMAGE_VERSION}} .
 
   docker-push:
-    desc: Build and Push Docker Container
+    desc: Build and Push Docker Container with version and latest tags
     # deps:
     #   - task: buildx
     cmds:
-      - DOCKER_BUILDKIT=1 docker buildx build --push -f ./Dockerfile --platform linux/amd64 --platform linux/arm64 -t {{.IMAGE_NAME}}:{{.IMAGE_VERSION}} .
+      - echo "Building and pushing Docker images with version {{.IMAGE_VERSION}} and latest tags"
+      - DOCKER_BUILDKIT=1 docker buildx build --push -f ./Dockerfile --platform linux/amd64 --platform linux/arm64 -t {{.IMAGE_NAME}}:{{.IMAGE_VERSION}} -t {{.IMAGE_NAME}}:latest .
 
   docker-run:
     desc: Run Docker Container
