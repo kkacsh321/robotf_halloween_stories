@@ -90,7 +90,7 @@ Set your key for OpenAI, or a custom address for your OpenAI compatiable API LLM
 
 For those who wish to pull the pre-built container from Docker Hub:
 
-Pull the Docker Image using latest tag (example v0.0.3):
+Pull the Docker Image using latest tag (example v0.0.5):
 
 ```bash
 docker pull robotf/robotf-halloween-stories:latest
